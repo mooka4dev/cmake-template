@@ -5,29 +5,38 @@ PROJECT(connsvr)
 
 MESSAGE("===== connsvr begin =====")
 
-# ʹ�����·��
+# 使用相对路径
 SET(CMAKE_USE_RELATIVE_PATHS ON)
 
-# �����ļ��б�
+# 生成文件列表
 FILE(GLOB_RECURSE C_FILE_LIST *.c)
 FILE(GLOB_RECURSE CPP_FILE_LIST *.cpp)
 FILE(GLOB_RECURSE CC_FILE_LIST *.cc)
 SET(ALL_FILE_LIST ${C_FILE_LIST} ${CPP_FILE_LIST} ${CC_FILE_LIST})
 
-# �趨����ѡ��
+# 设定编译选项
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -Wall")
 
-# ������ͷ�ļ�Ŀ¼
+# 包含的头文件目录
 INCLUDE_DIRECTORIES(../libmooka)
 
-# ���ļ�·��
+# 库文件路径
 LINK_DIRECTORIES(../../deps/libs)
 
-# ���ɿ�ִ���ļ�
+# 生成可执行文件
 ADD_EXECUTABLE(connsvr ${ALL_FILE_LIST})
 
-# ָ����Ҫ���ӵĿ��ļ�
+# 指定需要链接的库文件
 TARGET_LINK_LIBRARIES(connsvr mooka)
+
+# 执行shell命令
+# PRE_BUILD  - 命令将会在其他依赖项执行前执行
+# PRE_LINK   - 命令将会在其他依赖项执行完后执行
+# POST_BUILD - 命令将会在目标构建完后执行。
+ADD_CUSTOM_COMMAND(TARGET connsvr
+	PRE_BUILD
+	COMMAND echo "exec shell command"
+  ) 
 
 MESSAGE("===== connsvr end =====")
 
