@@ -38,5 +38,10 @@ ADD_CUSTOM_COMMAND(TARGET connsvr
 	COMMAND echo "exec shell command"
   ) 
 
+# 自定义函数
+function(function_name args)
+endfunction()
+
+
 MESSAGE("===== connsvr end =====")
 
